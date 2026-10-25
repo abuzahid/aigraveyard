@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ grave.name }} — AI Graveyard</title>
+  <meta name="description" content="{{ grave.summary }}">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; }
+    header { padding: 1rem 2rem; border-bottom: 1px solid #21262d; }
+    header a { color: #58a6ff; text-decoration: none; margin-right: 1.5rem; }
+    main { max-width: 760px; margin: 0 auto; padding: 2rem; }
+    .badge { font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; border: 1px solid #f85149; color: #f85149; }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .fact { border: 1px solid #21262d; border-radius: 8px; padding: .8rem; }
+    .fact small { color: #8b949e; display: block; }
+    .fact b { font-size: 1.05rem; }
+    .candle-btn { background: none; border: 1px solid #f85149; color: #f85149; padding: .5rem 1.2rem;
+                  border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    .candle-btn.on { background: #f85149; color: #0d1117; }
+    .comment { border-left: 2px solid #21262d; padding-left: 1rem; margin: .8rem 0; }
+    .muted { color: #8b949e; }
+    a { color: #58a6ff; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="/">← AI Graveyard</a>
+  <a href="/api/graves/">API</a>
+</header>
+<main>
+  <h1>{{ grave.name }} <span class="badge">{{ grave.get_status_display }}</span></h1>
+  <p class="muted">{{ grave.summary }}</p>
+
+  <div class="facts">
+    <div class="fact"><small>Born</small><b>{{ grave.born_on|default:"—" }}</b></div>
+    <div class="fact"><small>Died</small><b>{{ grave.died_on|default:"—" }}</b></div>
+    <div class="fact"><small>Category</small><b>{{ grave.category.name }}</b></div>
+    <div class="fact"><small>Cause of death</small><b>{{ grave.cause.name|default:"Unknown" }}</b></div>
+    {% if grave.funding_raised %}
+    <div class="fact"><small>Funding raised</small><b>${{ grave.funding_raised|floatformat:0 }}</b></div>
+    {% endif %}
+  </div>
+
+  <h2>The autopsy</h2>
+  <p>{{ grave.narrative|linebreaks }}</p>
+
+  {% if sources %}
+  <h2>Sources</h2>
+  <ul>
+    {% for source in sources %}
+    <li><a href="{{ source.url }}" rel="noopener">{{ source.title }}</a>{% if source.published_on %} ({{ source.published_on }}){% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form method="post" action="{% url 'grave-candle' grave.slug %}">
+    {% csrf_token %}
+    <button class="candle-btn {% if mourned %}on{% endif %}" type="submit">
+      🕯 {{ candle_count }} mourners — {% if mourned %}candle lit{% else %}leave a candle{% endif %}
+    </button>
+  </form>
+
+  {% if comments %}
+  <h2>Comments</h2>
+  {% for comment in comments %}
+  <div class="comment"><b>{{ comment.user.username }}</b> <small class="muted">{{ comment.created_at|date }}</small><br>{{ comment.body }}</div>
+  {% endfor %}
+  {% endif %}
+</main>
+</body>
+</html>

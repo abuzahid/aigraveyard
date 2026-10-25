@@ -1,0 +1,20 @@
+{
+  "name": "graveyard-realtime",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Socket.IO realtime service: private offer notifications, listing alerts, live counters",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ioredis": "^5.4.1",
+    "pg": "^8.12.0",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

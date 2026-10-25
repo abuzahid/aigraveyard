@@ -1,0 +1,113 @@
+[
+{"model": "graveyard.category", "pk": 1, "fields": {"name": "Workflow Automation", "slug": "workflow-automation"}},
+{"model": "graveyard.category", "pk": 2, "fields": {"name": "Chatbots", "slug": "chatbots"}},
+{"model": "graveyard.category", "pk": 3, "fields": {"name": "Video", "slug": "video"}},
+{"model": "graveyard.category", "pk": 4, "fields": {"name": "Browser", "slug": "browser"}},
+{"model": "graveyard.category", "pk": 5, "fields": {"name": "Assistant", "slug": "assistant"}},
+{"model": "graveyard.category", "pk": 6, "fields": {"name": "Productivity", "slug": "productivity"}},
+{"model": "graveyard.category", "pk": 7, "fields": {"name": "Email", "slug": "email"}},
+{"model": "graveyard.category", "pk": 8, "fields": {"name": "Hardware", "slug": "hardware"}},
+{"model": "graveyard.category", "pk": 9, "fields": {"name": "Audio", "slug": "audio"}},
+{"model": "graveyard.category", "pk": 10, "fields": {"name": "Model Comparison", "slug": "model-comparison"}},
+
+{"model": "graveyard.causeofdeath", "pk": 1, "fields": {"name": "Competition", "slug": "competition"}},
+{"model": "graveyard.causeofdeath", "pk": 2, "fields": {"name": "Legal / Regulatory", "slug": "legal-regulatory"}},
+{"model": "graveyard.causeofdeath", "pk": 3, "fields": {"name": "Operating Cost", "slug": "operating-cost"}},
+{"model": "graveyard.causeofdeath", "pk": 4, "fields": {"name": "Consolidation", "slug": "consolidation"}},
+{"model": "graveyard.causeofdeath", "pk": 5, "fields": {"name": "No Product-Market Fit", "slug": "no-pmf"}},
+{"model": "graveyard.causeofdeath", "pk": 6, "fields": {"name": "Pivot", "slug": "pivot"}},
+{"model": "graveyard.causeofdeath", "pk": 7, "fields": {"name": "Technical", "slug": "technical"}},
+{"model": "graveyard.causeofdeath", "pk": 8, "fields": {"name": "Privacy / Trust", "slug": "privacy-trust"}},
+
+{"model": "graveyard.grave", "pk": 1, "fields": {
+  "name": "Relay", "slug": "relay", "status": "dead",
+  "summary": "AI workflow automation tool built as a Zapier alternative.",
+  "born_on": "2021-03-01", "died_on": "2026-08-31", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 1, "cause": 1,
+  "narrative": "Relay let users automate email and task workflows with AI agents, but as OpenAI, Google, and other larger platforms built similar automation directly into their own tools, the five-year-old startup struggled to hold on to a reason to exist as a stand-alone product. Lesson: agent features are being absorbed by the platforms they run on."
+}},
+{"model": "graveyard.grave", "pk": 2, "fields": {
+  "name": "Character.ai", "slug": "characterai", "status": "dead",
+  "summary": "Custom AI character chat app; raised $150M at a $1B valuation.",
+  "born_on": "2021-09-01", "died_on": "2026-10-01", "funding_raised": "150000000.00", "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 2, "cause": 2,
+  "narrative": "Founded by ex-Google researchers, buzzed-about, then hollowed out: Google paid a reported $2.7B to license the tech and rehire the founders, lawsuits alleged chatbots contributed to teen harm, Disney sent a cease-and-desist. Filed for bankruptcy in October 2026 citing legal, regulatory, and operational headwinds. In an ironic twist, Disney is the opening bidder ($20M IP license)."
+}},
+{"model": "graveyard.grave", "pk": 3, "fields": {
+  "name": "Sora", "slug": "sora", "status": "dead",
+  "summary": "OpenAI's video-sharing platform; killed by costs and retention.",
+  "born_on": "2024-12-09", "died_on": "2026-03-31", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 3, "cause": 3,
+  "narrative": "Sora struggled with high operating costs and user-retention challenges and shut down in March 2026. Lesson: video generation infrastructure is brutally expensive to run as a consumer destination."
+}},
+{"model": "graveyard.grave", "pk": 4, "fields": {
+  "name": "ChatGPT Atlas", "slug": "chatgpt-atlas", "status": "absorbed",
+  "summary": "Standalone AI browser by OpenAI; lasted less than a year.",
+  "born_on": "2025-10-28", "died_on": "2026-08-09", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 4, "cause": 4,
+  "narrative": "Discontinued August 9 with its most useful features folded into ChatGPT. OpenAI has folded Operator in the same way and is shrinking DALL-E's standalone role."
+}},
+{"model": "graveyard.grave", "pk": 5, "fields": {
+  "name": "OpenAI Super App Redesign", "slug": "openai-super-app-redesign", "status": "rollback",
+  "summary": "Attempt to turn ChatGPT into a 'super app'; rolled back after backlash.",
+  "born_on": "2026-07-09", "died_on": null, "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 5, "cause": 5,
+  "narrative": "The July 9 update combined Chat, Codex, and Work modes and renamed the classic UI 'ChatGPT Classic'. Users found it confusing and cluttered; OpenAI rolled it back. Lesson: familiarity is a feature."
+}},
+{"model": "graveyard.grave", "pk": 6, "fields": {
+  "name": "Apple Siri AI", "slug": "apple-siri-ai", "status": "delayed",
+  "summary": "Promised with Apple Intelligence in 2024; shipped ~2 years late.",
+  "born_on": "2024-06-10", "died_on": null, "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 5, "cause": 7,
+  "narrative": "Repeated pushbacks citing engineering issues and bugs contributed to a $250M settlement over iPhone 16 AI marketing claims. The new Siri reached the iOS 27 beta in July 2026 and English users in October 2026."
+}},
+{"model": "graveyard.grave", "pk": 7, "fields": {
+  "name": "Microsoft Recall", "slug": "microsoft-recall", "status": "delayed",
+  "summary": "AI 'photographic memory' for Windows; delayed ~1 year over privacy backlash.",
+  "born_on": "2024-05-20", "died_on": null, "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 6, "cause": 8,
+  "narrative": "Periodic screenshots of everything users do triggered an immediate privacy and security backlash. Even after a redesign, a researcher built a tool extracting Recall's captured data, reviving questions about whether the underlying problem is fixed."
+}},
+{"model": "graveyard.grave", "pk": 8, "fields": {
+  "name": "Notion Mail", "slug": "notion-mail", "status": "dead",
+  "summary": "AI-focused email product; users chose other AI agents instead.",
+  "born_on": "2025-04-15", "died_on": "2026-09-22", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 7, "cause": 5,
+  "narrative": "Launched April 2025 to organize and automate inboxes; Notion noticed users handling email with separate AI agents instead. Scheduled to shut down September 22. Lesson: watch what users do, not what they ask for."
+}},
+{"model": "graveyard.grave", "pk": 9, "fields": {
+  "name": "Humane AI Pin", "slug": "humane-ai-pin", "status": "dead",
+  "summary": "AI wearable; $230M raised, assets sold to HP for $116M.",
+  "born_on": "2024-04-11", "died_on": "2025-02-28", "funding_raised": "230000000.00", "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 8, "cause": 5,
+  "narrative": "Probably the most famous AI hardware failure. Struggled with performance, then warned customers to stop using its charging case over battery-fire risk. HP acquired the assets for $116M — a partial Lifeboat rescue."
+}},
+{"model": "graveyard.grave", "pk": 10, "fields": {
+  "name": "Rabbit R1", "slug": "rabbit-r1", "status": "pivoted",
+  "summary": "Hyped AI companion device; sold 100K units, reviewed as unfinished.",
+  "born_on": "2024-01-09", "died_on": null, "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 8, "cause": 6,
+  "narrative": "Strong initial sales didn't mean a strong product. Rabbit kept updating the R1, repositioned it as a computer controller for agentic tasks, and announced 'Project Cyberdeck' — a portable vibe-coding device. A pivot, not a death (yet)."
+}},
+{"model": "graveyard.grave", "pk": 11, "fields": {
+  "name": "Huxe", "slug": "huxe", "status": "dead",
+  "summary": "AI audio app by ex-NotebookLM devs; outcompeted by Spotify et al.",
+  "born_on": "2025-06-01", "died_on": "2026-05-31", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 9, "cause": 1,
+  "narrative": "Turned written information into conversational podcast-style audio. Shut down May 2026 as larger platforms began offering similar experiences to large existing audiences."
+}},
+{"model": "graveyard.grave", "pk": 12, "fields": {
+  "name": "Yupp", "slug": "yupp", "status": "dead",
+  "summary": "Free playground comparing 800+ AI models side by side; never found PMF.",
+  "born_on": "2025-01-15", "died_on": "2026-03-31", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 10, "cause": 5,
+  "narrative": "Users could compare responses from hundreds of models (OpenAI, Google, Anthropic...), vote, and earn crypto. Founders said it never achieved strong enough product-market fit. Shut down March 2026."
+}},
+{"model": "graveyard.grave", "pk": 13, "fields": {
+  "name": "Figgs AI", "slug": "figgs-ai", "status": "dead",
+  "summary": "Customizable AI characters for role-play; 1M+ users, too expensive to keep free.",
+  "born_on": "2023-01-01", "died_on": "2024-12-31", "funding_raised": null, "region": "US", "created_at": "2026-10-26T00:00:00Z", "updated_at": "2026-10-26T00:00:00Z",
+  "category": 2, "cause": 3,
+  "narrative": "Ran 2023–2024, drew more than 1 million users, but developers said keeping the service free became too expensive to sustain."
+}}
+]

@@ -1,0 +1,89 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: graveyard
+      POSTGRES_USER: graveyard
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-graveyard}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U graveyard"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  web:
+    build: ./backend
+    # Auto-migrate + seed on first boot (dev convenience; use real migrations flow in prod)
+    command: >
+      sh -c "python manage.py makemigrations accounts graveyard lifeboat &&
+             python manage.py migrate &&
+             (python manage.py loaddata graves || true) &&
+             (if [ -n \"$$DJANGO_SUPERUSER_PASSWORD\" ]; then python manage.py createsuperuser --noinput || true; fi) &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    environment: &web-env
+      DB_NAME: graveyard
+      DB_USER: graveyard
+      DB_PASSWORD: ${DB_PASSWORD:-graveyard}
+      DB_HOST: db
+      DB_PORT: "5432"
+      REDIS_URL: redis://redis:6379/0
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-dev-insecure-key}
+      DJANGO_DEBUG: "1"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME:-admin}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD:-admin123}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build: ./backend
+    command: celery -A config worker -l info -B
+    volumes:
+      - ./backend:/app
+    environment: *web-env
+    depends_on:
+      - web
+
+  realtime:
+    build: ./realtime
+    volumes:
+      - ./realtime:/app
+      - /app/node_modules   # keep image-installed deps despite the source mount
+    environment:
+      DATABASE_URL: postgres://realtime_ro:realtime_ro@db:5432/graveyard
+      REDIS_URL: redis://redis:6379/1
+      DJANGO_API_URL: http://web:8000
+      PORT: "3001"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+      - realtime
+
+volumes:
+  pgdata:

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AI Graveyard — 42% of AI projects die. We keep the receipts.</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; }
+    header { padding: 1rem 2rem; border-bottom: 1px solid #21262d; display: flex; gap: 2rem; align-items: center;}
+    header a { color: #e6edf3; text-decoration: none; }
+    .hero { padding: 3rem 2rem; text-align: center; background: linear-gradient(180deg,#161b22,#0d1117); }
+    .counters { display: flex; justify-content: center; gap: 3rem; margin-top: 1.5rem; }
+    .counter b { display:block; font-size: 2rem; color: #f85149; }
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .card { border: 1px solid #21262d; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    .badge { font-size: .75rem; padding: .15rem .5rem; border-radius: 999px; border: 1px solid #f85149; color: #f85149; }
+    .badge.sink { border-color: #58a6ff; color: #58a6ff; }
+    h2 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: .08em; color: #8b949e; }
+    a { color: #58a6ff; }
+    footer { text-align: center; color: #8b949e; padding: 2rem; border-top: 1px solid #21262d; }
+  </style>
+</head>
+<body>
+<header>
+  <strong>AI GRAVEYARD</strong>
+  <a href="#graveyard">Graveyard</a>
+  <a href="#lifeboat">Lifeboat</a>
+  <a href="/api/stats/">Stats</a>
+  <a href="/django-admin/">Admin</a>
+</header>
+
+<section class="hero">
+  <h1>42% of AI projects die. We keep the receipts.</h1>
+  <div class="counters">
+    <div class="counter"><b>{{ grave_count }}</b> buried</div>
+    <div class="counter"><b>{{ sinking_count }}</b> sinking ships</div>
+  </div>
+</section>
+
+<main>
+  <section id="graveyard">
+    <h2>RIP — recently buried</h2>
+    {% for grave in recent_graves %}
+    <div class="card">
+      <strong><a href="/graves/{{ grave.slug }}/">{{ grave.name }}</a></strong> <span class="badge">{{ grave.get_status_display }}</span><br>
+      {{ grave.category.name }} ·
+      {% if grave.died_on %}died {{ grave.died_on }}{% else %}{{ grave.get_status_display }}{% endif %}
+      · {% if grave.cause %}{{ grave.cause.name }}{% endif %}<br>
+      <small>{{ grave.summary }}</small>
+    </div>
+    {% empty %}
+    <div class="card">No graves yet — <a href="/api/graves/">load the seed data</a>.</div>
+    {% endfor %}
+  </section>
+
+  <section id="lifeboat">
+    <h2>Sinking ships — rescue one</h2>
+    {% for listing in sinking %}
+    <div class="card">
+      <strong>{% if listing.stealth %}{{ listing.stealth_title }}{% else %}{{ listing.title }}{% endif %}</strong>
+      <span class="badge sink">{{ listing.get_pricing_mode_display }}</span><br>
+      {{ listing.category.name }} ·
+      {% if listing.metrics.mrr %}{{ listing.metrics.mrr }} MRR ·{% endif %}
+      ~{{ listing.urgency_score }}% submerged<br>
+      <a href="/api/listings/{{ listing.id }}/">View listing</a>
+    </div>
+    {% empty %}
+    <div class="card">No listings yet — the water is calm... for now.</div>
+    {% endfor %}
+  </section>
+</main>
+
+<footer>AI Graveyard — no AI project should die in silence.</footer>
+</body>
+</html>
